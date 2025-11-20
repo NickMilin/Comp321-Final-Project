@@ -1,10 +1,5 @@
-Sample data will be taken from `./sample/'.  All pairs of matching
-(.in, .ans) files there will be used as sample data, in alphabetical
-order by file name.  This data will be displayed in the problem
-statement.
+Sample1 - Normal random cases / Edge case of impossible
+Sample2 - Normal random cases / accident inputs not unordered
 
-Secret test data will be taken from `./secret/'. All pairs of matching
-(.in, .ans) files there will be used to test each
-submission. Optionally a text file (with filename extension .txt)
-describing the purpose of an input file may be present. For each .txt
-file there must be a matching (.in,.ans) pair.
+Secret1 - TLE / Large difference array creation
+Secret1 - TLE / Large prefix sum calculations
