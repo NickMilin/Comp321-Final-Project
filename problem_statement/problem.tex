@@ -46,7 +46,7 @@ You just got engaged and are planning the ultimate road trip across Canada. You 
 
 \noindent Once the Department finishes these projects, the highway is ready for travel. You start to plan your road trip, but you encounter an issue... \\
 
-\noindent Unfortunately, because of the new beautification projects, an increased number of people have started driving on the highway. Due to this influx in traffic, accidents may occur at specific sections of the highway. An accident acts as a complete roadblock. You cannot drive through a section that has an accident, nor can you start or end your trip there. (You must start your trip at the next section or end it at the section before the accident) \\
+\noindent Unfortunately, because of the new beautification projects, an increased number of people have started driving on the highway. Due to this influx in traffic, accidents may occur at specific sections of the highway. An accident acts as a complete roadblock. You cannot drive through a section that has an accident, nor can you start or end your trip there. (You must start your trip at the next section or end it at the section before the accident)\\
 
 \vspace{10pt}
 \noindent \textbf{The Trip Rule:}
@@ -85,11 +85,11 @@ The first line contains two integers $N$ and $M$ ($1 \le N, M \le 200\,000$), re
 \end{itemize}
 \textit{Note: $[L, R]$ is inclusive. A negative $V$ represents construction work that makes the scenery ugly.}\\
 
-\noindent The next line contains an integer $Q$ ($1 \le Q \le 10$), the number of traffic scenarios to analyze.
+\noindent The next line contains an integer $Q$ ($1 \le Q \le 20\,000$), the number of traffic scenarios to analyze.
 
 \noindent For each of the $Q$ scenarios:
 \begin{itemize}
-    \item The line contains $K$ distinct integers $a_1, a_2, \dots, a_K$ ($1 \le a_i \le N$), representing the locations of the accidents.
+    \item The line contains $K$ distinct integers $a_1, a_2, \dots, a_K$ ($1 \le a_i \le 10$), representing the locations of the accidents.
 \end{itemize}
 
 
@@ -98,7 +98,7 @@ The first line contains two integers $N$ and $M$ ($1 \le N, M \le 200\,000$), re
 
 For each of the $Q$ scenarios, output a single integer on a new line: the maximum Total Scenic Value obtainable on a single valid continuous drive. \\ 
 
-\noindent If there are no accidents, you may drive the entire length of the highway. If the best possible drive has a negative total value, you may still drive (output the negative sum). If each section is blocked, output impossible.
+\noindent If the best possible drive has a negative total value, you may still drive (output the negative sum). If each section is blocked, output \verb|impossible|.
 
 \section*{Sample Input 1	Sample Output 1}
 
@@ -119,7 +119,7 @@ For each of the $Q$ scenarios, output a single integer on a new line: the maximu
 \noindent \textbf{\large Sample Output 1}
 \begin{verbatim}
 20
-50
+30
 Impossible
 \end{verbatim}
 
@@ -136,29 +136,31 @@ Impossible
     
     \item \textbf{Scenario 1:} Accidents at $\{4, 7\}$.
     \item Blocked indices: 4 and 7.
-    [ 5 | 5 | 10 | 10 | 10 | 10 | 10 | -5 | -5 | -5 ]
-    [ 5 | 5 | 10 | \textbf{X} | 10 | 10 | \textbf{X} | -5 | -5 | -5 ]
-    \item Highway: [ 5 | 5 | 10 | \textbf{X} | 5 | 5 | \textbf{X} | 20 ]
+    %[ 5 | 5 | 10 | 10 | 10 | 10 | 10 | -5 | -5 | -5 ]
+    \item Highway: [ 5 | 5 | 10 | \textbf{X} | 10 | 10 | \textbf{X} | -5 | -5 | -5 ]
+
     \item Available Segments: $[1, 3]$, $[5, 6]$, $[8, 10]$.
     \item Sum $[1, 3] = 5+5+10 = 20$.
     \item Sum $[5, 6] = 10+10 = 20$.
     \item Sum $[8, 10] = -5 + -5 + -5 = -15$.
+    \item Max is \textbf{20}
+    \item Output: \textbf{20} \\
+
+    \item \textbf{Scenario 2:} Accidents at $\{5\}$.
+    \item Blocked indices: 5.    
+    \item Highway: [ 5 | 5 | 10 | 10 | \textbf{X} | 10 | 10 | -5 | -5 | -5 ]
+    \item Available Segments: $[1, 4]$, $[6, 10]$
+    \item Sum $[1, 4] = 5+5+10+10 = 30$.
+    \item Sum $[6, 10] = 10+10-5-5-5 = 5$.
     \item Max is \textbf{30}
     \item Output: \textbf{30} \\
 
-    \item \textbf{Scenario 2:} Accidents at $\{10\}$.
-    \item Blocked indices: 10.    
-    \item Highway: [ 5 | 5 | 10 | 10 | 10 | 10 | 10 | -5 | -5 | \textbf{X} ]
-    \item Available Segments: $[1, 9]$
-    \item Sum $[1, 9] = 5+5+10+10+10+10+10-5-5 = 50$.
-    \item Max is \textbf{50}
-    \item Output: \textbf{50} \\
-
     \item \textbf{Scenario 3:} Accidents at $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
-    \item Blocked indices: 10.
+    \item Blocked indices: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.
     \item Highway: [ \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} | \textbf{X} ]
     \item Available Segments: $None$
     \item Output: \verb|Impossible|
 \end{itemize}
+
 
 \end{document}
