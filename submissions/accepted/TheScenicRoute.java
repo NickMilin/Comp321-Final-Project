@@ -4,90 +4,107 @@ public class TheScenicRoute {
 
     private static void scenicRouteSolution() {
 
-        Scanner scanner = new Scanner(System.in); // Scanner to read input
+        Scanner scanner = new Scanner(System.in); // Scanner to read from standard input
 
         int N = scanner.nextInt(); // Length of the highway (number of segments)
         int M = scanner.nextInt(); // Number of beautification projects
 
         // Difference array for efficient range updates
-        // diff[i] will store the change to scenic value at index i
-        int[] diff = new int[N + 2]; // +2 to safely handle diff[R+1] update
+        int[] diff = new int[N + 2]; // +2 to safely handle diff[R+1]
 
-        // Apply each beautification project
-        // Each project increases or decreases the scenic value in a range [L, R]
+        // Apply each beautification project using range updates
         for (int i = 0; i < M; i++) {
-            int L = scanner.nextInt(); // Start of project (1-indexed)
-            int R = scanner.nextInt(); // End of project (1-indexed, inclusive)
-            int V = scanner.nextInt(); // Scenic value change (+/-)
+            int L = scanner.nextInt(); // Start index of project
+            int R = scanner.nextInt(); // End index (inclusive)
+            int V = scanner.nextInt(); // Scenic value change
 
-            diff[L] += V;       // Add V at the start index
-            diff[R + 1] -= V;   // Subtract V after the end index
-            // This ensures that when we take prefix sums, the change is applied only to [L,R]
+            diff[L] += V;      // Start applying V at L
+            diff[R + 1] -= V;  // End applying V after R
         }
 
-        // Build actual scenic values along the highway
-        int[] scenic = new int[N + 1]; // scenic[i] = total scenic value at segment i
+        // Build actual scenic values from diff[]
+        int[] scenic = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            diff[i] += diff[i - 1]; // Apply the difference array prefix sum
-            scenic[i] = diff[i];    // Store actual scenic value
+            diff[i] += diff[i - 1];
+            scenic[i] = diff[i];
         }
 
-        // Build prefix sum array for fast segment sum queries
-        int[] prefix = new int[N + 1]; // prefix[i] = sum of scenic values from 1 to i
+        // Build prefix sum array of scenic values
+        int[] prefix = new int[N + 1];
         for (int i = 1; i <= N; i++) {
             prefix[i] = prefix[i - 1] + scenic[i];
         }
 
-        int Q = scanner.nextInt(); // Number of traffic scenarios (queries)
+        int Q = scanner.nextInt(); // Number of traffic scenarios
         scanner.nextLine();        // Consume leftover newline
 
         // Process each traffic scenario
         for (int q = 0; q < Q; q++) {
-            String line = scanner.nextLine().trim(); // Read a line of accident locations
-            while (line.isEmpty()) { // Skip empty lines
+
+            // Safe accident line reading
+            String line = "";
+
+            // First attempt to read a line only if one exists
+            if (scanner.hasNextLine()) {
                 line = scanner.nextLine().trim();
             }
 
-            String[] parts = line.split(" "); // Split by spaces
-            int[] accidents = new int[parts.length]; // Array to store accident positions
+            // Skip empty lines *but only if there are more lines available*
+            while (line.isEmpty() && scanner.hasNextLine()) {
+                line = scanner.nextLine().trim();
+            }
+
+            // If line is empty here, it means:
+            // - There were no accident locations
+            // - The entire highway has no blocked segments
+            if (line.isEmpty()) {
+                int fullSum = prefix[N];  // sum of entire highway
+                System.out.println(fullSum);
+                continue; // Move to next scenario
+            }
+
+
+            // Parse accidents
+            String[] parts = line.split(" ");  // Split accident positions
+            int[] accidents = new int[parts.length];
 
             for (int i = 0; i < parts.length; i++) {
-                accidents[i] = Integer.parseInt(parts[i]); // Convert each to int
+                accidents[i] = Integer.parseInt(parts[i]);
             }
 
-            Arrays.sort(accidents); // Sort accidents to process segments in order
+            Arrays.sort(accidents); // Sort so we process segments left→right
 
-            int best = Integer.MIN_VALUE; // Will store the maximum scenic sum without accidents
-            int prev = 1; // Start of the current segment (initially the beginning of highway)
+            int best = Integer.MIN_VALUE; // Best scenic segment found
+            int prev = 1;                 // Start of current valid stretch
 
-            // Loop through accidents to check segments between them
+            // For each accident, compute scenic sum before it
             for (int acc : accidents) {
-                int L = prev; // Start of current safe segment
-                int R = acc - 1; // End of current safe segment (just before accident)
+                int L = prev;
+                int R = acc - 1; // Segment stops right before accident
 
-                if (L <= R) { // If segment exists
-                    int sum = prefix[R] - prefix[L - 1]; // Sum of scenic values in this segment
-                    best = Math.max(best, sum); // Update maximum scenic sum
+                if (L <= R) {
+                    int sum = prefix[R] - prefix[L - 1];
+                    best = Math.max(best, sum);
                 }
 
-                prev = acc + 1; // Move start of next segment to just after this accident
+                prev = acc + 1; // Next segment starts AFTER accident
             }
 
-            // Check the segment after the last accident
+            // After the last accident, check the remaining segment
             if (prev <= N) {
-                int sum = prefix[N] - prefix[prev - 1]; // Sum from prev to end
+                int sum = prefix[N] - prefix[prev - 1];
                 best = Math.max(best, sum);
             }
 
             // Output result
             if (best == Integer.MIN_VALUE) {
-                System.out.println("Impossible"); // No valid segment
+                System.out.println("Impossible");
             } else {
-                System.out.println(best); // Maximum scenic sum
+                System.out.println(best);
             }
         }
 
-        scanner.close(); // Close the scanner
+        scanner.close();
     }
 
     public static void main(String[] args) {

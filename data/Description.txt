@@ -1,5 +1,7 @@
 Sample1 - Normal random cases / Edge case of impossible
 Sample2 - Normal random cases / accident inputs not unordered
+Sample3 - No updates and no accidents – tests base behaviour with all-zero scenic values.
 
 Secret1 - TLE / Large difference array creation
-Secret1 - TLE / Large prefix sum calculations
+Secret2 - TLE / Large prefix sum calculations
+Secret3 - 
