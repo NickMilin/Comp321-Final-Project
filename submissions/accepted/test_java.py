@@ -13,6 +13,8 @@ input_files = sorted(glob.glob(os.path.join(SECRET_DIR, "secret*.in")))
 
 all_passed = True
 
+wrong_count = 0
+
 for infile in input_files:
     ansfile = infile.replace(".in", ".ans")
     if not os.path.exists(ansfile):
@@ -38,14 +40,17 @@ for infile in input_files:
     actual = result.stdout.strip()
 
     if actual == expected:
-        print(f"{infile}: ✅ Passed")
+        # print(f"{infile}: ✅ Passed")
+        continue
     else:
         print(f"{infile}: ❌ Failed")
         print(f"Expected:\n{expected[:200]}{'...' if len(expected) > 200 else ''}")
         print(f"Got:\n{actual[:200]}{'...' if len(actual) > 200 else ''}")
         all_passed = False
+        wrong_count += 1
 
 if all_passed:
     print("\nAll secret test cases passed!")
 else:
     print("\nSome secret test cases failed.")
+    print(f"Total failed cases: {wrong_count}")

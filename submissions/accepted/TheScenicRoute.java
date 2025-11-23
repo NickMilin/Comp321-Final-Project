@@ -63,6 +63,7 @@ public class TheScenicRoute {
                 continue; // Move to next scenario
             }
 
+
             // Parse accidents
             String[] parts = line.split(" ");  // Split accident positions
             int[] accidents = new int[parts.length];

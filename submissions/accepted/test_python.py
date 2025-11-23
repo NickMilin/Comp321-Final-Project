@@ -38,7 +38,8 @@ for infile in input_files:
     actual = result.stdout.strip()
 
     if actual == expected:
-        print(f"{infile}: ✅ Passed")
+        # print(f"{infile}: ✅ Passed")
+        continue
     else:
         print(f"{infile}: ❌ Failed")
         print(f"Expected:\n{expected[:200]}{'...' if len(expected) > 200 else ''}")
