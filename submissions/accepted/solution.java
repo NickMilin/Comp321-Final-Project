@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class TheScenicRoute {
+public class solution {
 
     private static void scenicRouteSolution() {
 
