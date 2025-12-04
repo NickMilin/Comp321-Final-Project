@@ -6,7 +6,7 @@ import random
 curr_dir = os.path.dirname(os.path.abspath(__file__))
 data_secret_dir = os.path.join(curr_dir, '..', 'data', 'secret')
 
-case = 1
+case = 3
 
 if case == 1:
     file_name = os.path.join(data_secret_dir, 'secret1.in')
@@ -34,7 +34,7 @@ if case == 2:
             smallest_index = min(random_index_1, random_index_2)
             largest_index = max(random_index_1, random_index_2)
 
-            value = random.randint(-1000,1000)
+            value = random.randint(-100000,100000)
 
             f.write(f"{smallest_index} {largest_index} {value}" + '\n')
 
@@ -44,3 +44,17 @@ if case == 2:
             road_blocks = random.sample(range(1, N), number_of_road_blocks)
             road_blocks_string = ' '.join(map(str, road_blocks))
             f.write(road_blocks_string + '\n')
+
+
+if case == 3:
+    file_name = os.path.join(data_secret_dir, 'secret22.in')
+    N, M = 2000000, 25000
+    Q = 1
+
+    with open(file_name, 'w') as f:
+        f.write(f'{N} {M}' + '\n')
+        for i in range(M):
+            f.write(f"1 2000000 100000" + '\n')
+
+        f.write("1" + '\n')
+        f.write("1000000")

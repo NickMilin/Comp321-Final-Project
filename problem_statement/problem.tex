@@ -1,5 +1,5 @@
 \documentclass[11pt, a4paper]{article}
-\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
 % --- PREAMBLE FOR PDFLATEX COMPATIBILITY ---
 \usepackage[utf8]{inputenc}
@@ -47,19 +47,20 @@
 % This command now places the image on the right, allowing text to wrap on the left
 \illustration{0.45}{Images/Trans_Canada_Highway.png}{Photo by \href{https://www.nationalgeographic.com/travel/article/ultimate-trans-canadian-highway-roadtrip}{National Geographic}}
 
-You just got engaged and are planning the ultimate scenic road trip across Canada. You plan on taking the Trans-Canada Highway, Canada's longest national road, stretching from Victoria, BC to British Columbia, and ending in St. John's, Newfoundland and Labrador. It was once the world's longest uninterrupted highway when it opened in 1962. We represent the highway as a straight line with $N$ distinct sections, \mbox{indexed from ~$1$ to ~$N$.}\\
+You just got engaged and are planning the ultimate scenic road trip across Canada. You plan on taking the Trans-Canada Highway, Canada's longest national road, stretching from Victoria, BC to British Columbia, and ending in St. John's, Newfoundland and Labrador. It was once the world's longest uninterrupted highway when it opened in 1962. We represent the highway as a straight line with $N$ distinct sections, \mbox{indexed from~$1$ to~$N$.} \\
 
-\noindent Initially, the highway is boring, with a "Scenic Value" of $0$ for each section. However, before the tourist season begins, the Department of Transportation completes a series of $M$ beautification projects. Each project targets a specific contiguous range of the highway $[L, R]$ and increases the Scenic Value of every section in that range by an integer $V$.\\
+\noindent Initially, the highway is boring, with a "Scenic Value" of $0$ for every section. However, before the tourist season begins, the Department of Transportation completes a series of $M$ beautification projects. Each project targets an inclusive range of highway $[L, R]$ and increases the Scenic Value of every section in that range by an integer $V$.\\
 
-\noindent Once the Department finishes these projects, the highway is ready for travel. You start to plan your road trip, but you encounter an issue... \\
+\noindent Once the Department finishes these projects, the highway is ready for travel. You start to plan your road trip, but you encounter an issue...\\
 
-\noindent Unfortunately, because of the new beautification projects, an increased number of people have started driving on the highway. Due to this influx in traffic, accidents may occur at specific sections of the highway. An accident acts as a complete roadblock. You cannot drive through a section that has an accident, nor can you start or end your trip there. (You must start your trip at the next section or end it at the section before the accident)\\
+\noindent Unfortunately, because of the new beautification projects, an increased number of people have started driving on the highway. Due to this influx in traffic, accidents may occur at specific sections. An accident acts as a complete roadblock. You cannot drive through a section that has an accident, nor can you start or end your trip exactly at that index. \\
 
-\vspace{10pt}
+\noindent \textbf{Note:} Entry and exit onto the highway are only allowed at the indices strictly before or strictly after an accident. \\
+
 \noindent \textbf{The Trip Rule:}
-You must choose a single contiguous segment of the highway to drive on. This segment must not contain any accidents. Your goal is to maximize the \textbf{Total Scenic Value} (the sum of values of all sections) of your trip.\\
+You must choose a single contiguous segment of the highway to drive on. This segment must not contain any accidents. Your goal is to maximize the \textbf{Total Scenic Value}, the sum of Scenic Values of the sections included in your trip.\\
 
-\noindent The input provides the details of the beautification projects, followed by $Q$ different traffic scenarios. For each scenario, you must calculate the maximum Total Scenic Value possible.
+\noindent The input provides the details of the beautification projects, followed by $Q$ independent traffic scenarios. For each scenario, you must calculate the maximum Total Scenic Value possible.
 
 % --- DIAGRAM PLACEHOLDER ---
 \begin{figure}[h]
@@ -78,11 +79,11 @@ You must choose a single contiguous segment of the highway to drive on. This seg
 \newpage
 \section*{Input}
 
-The first line contains two integers $N$ and $M$ ($1 \le N, M \le 200\,000$), representing the length of the highway and the number of beautification projects. \\
+The first line contains two integers $N$ and $M$ ($1 \le N, M \le 2\,000\,000$), representing the length of the highway and the number of beautification projects. \\
 
 \noindent The next $M$ lines describe the projects. Each line contains three integers $L, R, V$:
 \begin{itemize}
-    \item The range $[L, R]$ ($1 \le L \le R \le N$) has its Scenic Value increased by $V$ ($-1000 \le V \le 1000$).
+    \item The range $[L, R]$ ($1 \le L \le R \le N$) has its Scenic Value increased by $V$ ($-100\,000 \le V \le 100\,000$).
 \end{itemize}
 \textit{Note: $[L, R]$ is inclusive. A negative $V$ represents construction work that makes the scenery ugly.}\\
 
@@ -90,7 +91,7 @@ The first line contains two integers $N$ and $M$ ($1 \le N, M \le 200\,000$), re
 
 \noindent For each of the $Q$ scenarios:
 \begin{itemize}
-    \item The line contains $K$ ($1 \le K \le 10$) distinct integers $a_1, a_2,\dots, a_K$ , representing the locations of the accidents.
+    \item The line contains $K$ ($1 \le K \le 10$) distinct integers $a_1, a_2,\dots, a_K$  ($1 \le a_i \le N$), representing the locations of the accidents.
 \end{itemize}
 
 
