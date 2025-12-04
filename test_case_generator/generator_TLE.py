@@ -47,14 +47,14 @@ if case == 2:
 
 
 if case == 3:
-    file_name = os.path.join(data_secret_dir, 'secret22.in')
-    N, M = 2000000, 25000
+    file_name = os.path.join(data_secret_dir, 'secret21.in')
+    N, M = 2000000, 2500
     Q = 1
 
     with open(file_name, 'w') as f:
         f.write(f'{N} {M}' + '\n')
         for i in range(M):
-            f.write(f"1 2000000 100000" + '\n')
+            f.write(f"1 2000000 1000000" + '\n')
 
         f.write("1" + '\n')
         f.write("1000000")
