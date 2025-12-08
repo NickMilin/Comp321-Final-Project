@@ -5,17 +5,17 @@ import sys
 import subprocess
 
 
-def generate_test_case(n, m, q, filename, max_value=1000, max_accidents=10):
+def generate_test_case(n, m, q, filename, max_value=1000000, max_accidents=10):
     """
     Generate a single test case and write to files.
 
     Args:
-        n: Number of highway sections (1 <= n <= 200,000)
-        m: Number of beautification projects (1 <= m <= 200,000)
+        n: Number of highway sections (1 <= n <= 2,000,000)
+        m: Number of beautification projects (1 <= m <= 2,000,000)
         q: Number of traffic scenarios (1 <= q <= 20,000)
         filename: Base filename (without extension)
         max_value: Maximum absolute value for scenic value changes
-        max_accidents: Maximum number of accidents per scenario
+        max_accidents: Maximum number of accidents per scenario (1 <= K <= 10)
     """
     # Generate beautification projects
     projects = []
@@ -28,11 +28,8 @@ def generate_test_case(n, m, q, filename, max_value=1000, max_accidents=10):
     # Generate traffic scenarios
     scenarios = []
     for _ in range(q):
-        k = random.randint(0, min(max_accidents, n))
-        if k == 0:
-            accidents = []
-        else:
-            accidents = sorted(random.sample(range(1, n + 1), k))
+        k = random.randint(1, min(max_accidents, n))
+        accidents = sorted(random.sample(range(1, n + 1), k))
         scenarios.append(accidents)
 
     # Write input file
@@ -42,10 +39,8 @@ def generate_test_case(n, m, q, filename, max_value=1000, max_accidents=10):
             f.write(f"{left} {right} {v}\n")
         f.write(f"{q}\n")
         for accidents in scenarios:
-            if accidents:
-                f.write(" ".join(map(str, accidents)) + "\n")
-            else:
-                f.write("\n")
+            k = len(accidents)
+            f.write(f"{k} " + " ".join(map(str, accidents)) + "\n")
 
     # Compute answers
     with open(f"{filename}.in", "r") as f:
@@ -82,8 +77,8 @@ def main():
         q = int(sys.argv[3])
 
     # Validate constraints
-    assert 1 <= n <= 200000, "N must be between 1 and 200,000"
-    assert 1 <= m <= 200000, "M must be between 1 and 200,000"
+    assert 1 <= n <= 2000000, "N must be between 1 and 2,000,000"
+    assert 1 <= m <= 2000000, "M must be between 1 and 2,000,000"
     assert 1 <= q <= 20000, "Q must be between 1 and 20,000"
 
     # Set random seed for reproducibility (can be overridden)

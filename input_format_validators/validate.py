@@ -32,12 +32,12 @@ def validate_input():
             sys.stderr.write("Error: N and M must be integers\n")
             return 1
 
-        # Validate constraints: 1 <= N <= 200,000, 0 <= M <= 200,000
-        if not (1 <= N <= 200000):
-            sys.stderr.write(f"Error: N must be between 1 and 200,000, got {N}\n")
+        # Validate constraints: 1 <= N <= 2,000,000, 1 <= M <= 2,000,000
+        if not (1 <= N <= 2000000):
+            sys.stderr.write(f"Error: N must be between 1 and 2,000,000, got {N}\n")
             return 1
-        if not (0 <= M <= 200000):
-            sys.stderr.write(f"Error: M must be between 0 and 200,000, got {M}\n")
+        if not (1 <= M <= 2000000):
+            sys.stderr.write(f"Error: M must be between 1 and 2,000,000, got {M}\n")
             return 1
 
         line_idx += 1
@@ -78,9 +78,9 @@ def validate_input():
                 sys.stderr.write(f"Error: L must be <= R, got L={L}, R={R}\n")
                 return 1
 
-            # Validate constraint: -1000 <= V <= 1000
-            if not (-1000 <= V <= 1000):
-                sys.stderr.write(f"Error: V must be between -1000 and 1000, got {V}\n")
+            # Validate constraint: -1,000,000 <= V <= 1,000,000
+            if not (-1000000 <= V <= 1000000):
+                sys.stderr.write(f"Error: V must be between -1,000,000 and 1,000,000, got {V}\n")
                 return 1
 
             line_idx += 1
@@ -116,13 +116,44 @@ def validate_input():
 
             scenario_line = lines[line_idx].strip()
 
-            # Handle empty scenario (K=0, no accidents)
             if scenario_line == "":
-                line_idx += 1
-                continue
+                sys.stderr.write(
+                    f"Error: Scenario {i + 1} line cannot be empty (must have K and accident locations)\n"
+                )
+                return 1
 
-            accidents = scenario_line.split()
+            parts = scenario_line.split()
 
+            # First integer should be K
+            if len(parts) < 1:
+                sys.stderr.write(
+                    f"Error: Scenario {i + 1} must contain K (number of accidents)\n"
+                )
+                return 1
+
+            try:
+                K = int(parts[0])
+            except ValueError:
+                sys.stderr.write(
+                    f"Error: Scenario {i + 1} K must be an integer\n"
+                )
+                return 1
+
+            # Validate constraint: 1 <= K <= 10
+            if not (1 <= K <= 10):
+                sys.stderr.write(
+                    f"Error: K must be between 1 and 10, got {K}\n"
+                )
+                return 1
+
+            # Check that we have exactly K accident locations after K
+            if len(parts) != K + 1:
+                sys.stderr.write(
+                    f"Error: Scenario {i + 1} declares K={K} but has {len(parts) - 1} accident locations\n"
+                )
+                return 1
+
+            accidents = parts[1:]
             accident_set = set()
             for j, accident_str in enumerate(accidents):
                 try:
@@ -133,8 +164,7 @@ def validate_input():
                     )
                     return 1
 
-                # Validate constraint: 1 <= a_i <= N (based on problem statement saying 1 <= a_i <= 10,
-                # but that seems like a typo, should be N)
+                # Validate constraint: 1 <= a_i <= N
                 if not (1 <= a <= N):
                     sys.stderr.write(
                         f"Error: Accident location must be between 1 and {N}, got {a}\n"
