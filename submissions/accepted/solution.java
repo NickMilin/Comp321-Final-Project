@@ -42,12 +42,8 @@ public class solution {
         for (int q = 0; q < Q; q++) {
 
             // Safe accident line reading
-            String line = "";
+            String line = scanner.nextLine().trim();
 
-            // First attempt to read a line only if one exists
-            if (scanner.hasNextLine()) {
-                line = scanner.nextLine().trim();
-            }
 
             // Skip empty lines *but only if there are more lines available*
             while (line.isEmpty() && scanner.hasNextLine()) {
