@@ -1,10 +1,29 @@
+DESCRIPTION OF TEST CASES
+
+Sample Cases:
 Sample1 - Normal random cases / Edge case of impossible
 Sample2 - Normal random cases / accident inputs not unordered
 Sample3 - No updates and no accidents – tests base behaviour with all-zero scenic values.
 
-Secret1 - TLE / Large difference array creation
-Secret2 - TLE / Large prefix sum calculations
-Secret3 - 
-
-
+Secret Test Cases:
+Secret1 - TLE / Large difference array creation and prefix-update stress test
+Secret2 - TLE / Huge Q with extremely large accident lists stress-testing segmentation and prefix-sum queries
+Secret3 - Simple single-update case / Tests basic accident splitting on a small highway
+Secret4 - All-negative scenic values / Tests correct handling of negative segments and accident-based splitting
+Secret5 - All sections blocked / Tests correct handling of fully obstructed highway (should output Impossible)
+Secret6 - Single range update / Accident at last index; tests choosing the best prefix segment before a terminal blockage
+Secret7 - Mixed positive/negative updates / Tests overlapping ranges and segmentation under multiple accident patterns
+Secret8 - Multiple overlapping updates / Tests segmentation when all mid-highway indices are blocked, leaving only edge segments
+Secret9 - Full update cancellation / Tests handling of zero-valued scenic array after opposing updates
+Secret10 - Blockage at first index / Tests correct handling of segments starting after an initial accident
+Secret11 - Multiple overlapping updates with mixed signs / Tests correct computation of complex scenic values before a single mid-road accident
+Secret12 - Minimal highway with invalid and valid accident inputs / Tests robustness to accidents outside valid range and repeated queries
+Secret13 - No updates on the highway / Tests accident-only scenarios with zero scenic values across multiple queries
+Secret14 - All-negative updates / Tests choosing the least-negative segment when the entire highway has negative scenic values
+Secret15 - Uniform positive scenic values / Tests multiple-accident segmentation creating several small valid segments
+Secret16 - Single positive update on a subrange / Tests correct handling of accident exactly at the boundary of an updated interval
+Secret17 - Repeated identical updates / Tests correctness when multiple full-range updates stack and must sum cleanly
+Secret18 - Nested positive updates / Tests handling of accident at the first index with remaining segment partially updated
+Secret19 - Heavy overlapping updates on large N / Tests segmentation under many accident patterns with complex scenic distributions
+Secret20 - Highly complex mixed updates on medium N / Tests robustness under chaotic scenic distributions with many varied accident permutations
 Secret21 - Max integer overflow. Test when V is very large and when scenic value goes over max int.
