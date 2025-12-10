@@ -10,27 +10,27 @@ public class solution {
         int M = scanner.nextInt(); // Number of beautification projects
 
         // Difference array for efficient range updates
-        int[] diff = new int[N + 2]; // +2 to safely handle diff[R+1]
+        long[] diff = new long[N + 2]; // +2 to safely handle diff[R+1]
 
         // Apply each beautification project using range updates
         for (int i = 0; i < M; i++) {
             int L = scanner.nextInt(); // Start index of project
             int R = scanner.nextInt(); // End index (inclusive)
-            int V = scanner.nextInt(); // Scenic value change
+            long V = scanner.nextInt(); // Scenic value change
 
             diff[L] += V;      // Start applying V at L
             diff[R + 1] -= V;  // End applying V after R
         }
 
         // Build actual scenic values from diff[]
-        int[] scenic = new int[N + 1];
+        long[] scenic = new long[N + 1];
         for (int i = 1; i <= N; i++) {
             diff[i] += diff[i - 1];
             scenic[i] = diff[i];
         }
 
         // Build prefix sum array of scenic values
-        int[] prefix = new int[N + 1];
+        long[] prefix = new long[N + 1];
         for (int i = 1; i <= N; i++) {
             prefix[i] = prefix[i - 1] + scenic[i];
         }
@@ -54,7 +54,7 @@ public class solution {
             // - There were no accident locations
             // - The entire highway has no blocked segments
             if (line.isEmpty()) {
-                int fullSum = prefix[N];  // sum of entire highway
+                long fullSum = prefix[N];  // sum of entire highway
                 System.out.println(fullSum);
                 continue; // Move to next scenario
             }
@@ -70,7 +70,7 @@ public class solution {
 
             Arrays.sort(accidents); // Sort so we process segments left→right
 
-            int best = Integer.MIN_VALUE; // Best scenic segment found
+            long best = Long.MIN_VALUE; // Best scenic segment found
             int prev = 1;                 // Start of current valid stretch
 
             // For each accident, compute scenic sum before it
@@ -79,7 +79,7 @@ public class solution {
                 int R = acc - 1; // Segment stops right before accident
 
                 if (L <= R) {
-                    int sum = prefix[R] - prefix[L - 1];
+                    long sum = prefix[R] - prefix[L - 1];
                     best = Math.max(best, sum);
                 }
 
@@ -88,7 +88,7 @@ public class solution {
 
             // After the last accident, check the remaining segment
             if (prev <= N) {
-                int sum = prefix[N] - prefix[prev - 1];
+                long sum = prefix[N] - prefix[prev - 1];
                 best = Math.max(best, sum);
             }
 
