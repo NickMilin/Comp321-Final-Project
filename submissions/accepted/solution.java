@@ -93,7 +93,7 @@ public class solution {
             }
 
             // Output result
-            if (best == Integer.MIN_VALUE) {
+            if (best == Long.MIN_VALUE) {
                 System.out.println("Impossible");
             } else {
                 System.out.println(best);
