@@ -6,15 +6,15 @@ Sample2 - Normal random cases / accident inputs not unordered
 Sample3 - No updates and no accidents – tests base behaviour with all-zero scenic values.
 
 Secret Test Cases:
-Secret1 - TLE / Large difference array creation and prefix-update stress test
-Secret2 - TLE / Huge Q with extremely large accident lists stress-testing segmentation and prefix-sum queries
-Secret3 - Simple single-update case / Tests basic accident splitting on a small highway
-Secret4 - All-negative scenic values / Tests correct handling of negative segments and accident-based splitting
-Secret5 - All sections blocked / Tests correct handling of fully obstructed highway (should output Impossible)
-Secret6 - Single range update / Accident at last index; tests choosing the best prefix segment before a terminal blockage
-Secret7 - Mixed positive/negative updates / Tests overlapping ranges and segmentation under multiple accident patterns
-Secret8 - Multiple overlapping updates / Tests segmentation when all mid-highway indices are blocked, leaving only edge segments
-Secret9 - Full update cancellation / Tests handling of zero-valued scenic array after opposing updates
+Secret1  - TLE / Large difference array creation and prefix-update stress test
+Secret2  - TLE / Huge Q with extremely large accident lists stress-testing segmentation and prefix-sum queries
+Secret3  - Simple single-update case / Tests basic accident splitting on a small highway
+Secret4  - All-negative scenic values / Tests correct handling of negative segments and accident-based splitting
+Secret5  - All sections blocked / Tests correct handling of fully obstructed highway (should output Impossible)
+Secret6  - Single range update / Accident at last index; tests choosing the best prefix segment before a terminal blockage
+Secret7  - Mixed positive/negative updates / Tests overlapping ranges and segmentation under multiple accident patterns
+Secret8  - Multiple overlapping updates / Tests segmentation when all mid-highway indices are blocked, leaving only edge segments
+Secret9  - Full update cancellation / Tests handling of zero-valued scenic array after opposing updates
 Secret10 - Blockage at first index / Tests correct handling of segments starting after an initial accident
 Secret11 - Multiple overlapping updates with mixed signs / Tests correct computation of complex scenic values before a single mid-road accident
 Secret12 - Minimal highway with invalid and valid accident inputs / Tests robustness to accidents outside valid range and repeated queries
